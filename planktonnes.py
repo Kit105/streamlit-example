@@ -100,18 +100,18 @@ def data_analysis():
     # kmeans = load('planktonClustering.joblib')
 
     # load images from directory
-    directory = "/Users/ankitbasare/Projects/EIßC/Images/"
+    directory = "/Users/ankitbasare/Projects/EIGC/Images/"
     # images = []
     # for filename in os.listdir(directory):
     #     if filename.endswith(".jpg"):
     #         images.append(filename)
-    #     else:ß
+    #     else:
     #         continue
 
     # def get_image_histogram(image, bins=(8, 8, 8)):
     #     # Compute the histogram of the RGB channels separately
     #     hist = cv2.calcHist([image], [0, 1, 2], None, bins, [0, 256, 0, 256, 0, 256])
-ß
+
     #     # Normalize the histogram
     #     cv2.normalize(hist, hist)
 
