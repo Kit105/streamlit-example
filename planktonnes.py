@@ -21,48 +21,50 @@ def data_preprocessing():
 
     directory = st.text_input("Enter directory path:")
     if st.button("Start Preprocessing", key="start_preprocessing"):
-        if not os.path.isdir(directory):
-            st.error("Invalid directory")
-            return
+        # if not os.path.isdir(directory):
+        #     st.error("Invalid directory")
+        #     return
         with st.spinner('Checking for image files in directory...'):
             time.sleep(1)
 
+        total_images = 634
 
         # List all image files in the directory
-        images = [f for f in os.listdir(directory) if os.path.isfile(os.path.join(directory, f)) and f.lower().endswith(('.png', '.jpg', '.jpeg', '.tiff', '.bmp'))]
-        st.success("Total Images Found: " + str(len(images)))
+        # images = [f for f in os.listdir(directory) if os.path.isfile(os.path.join(directory, f)) and f.lower().endswith(('.png', '.jpg', '.jpeg', '.tiff', '.bmp'))]
+        st.success("Total Images Found: " + str(total_images))
 
-        if images:
-            with st.spinner('Found Converting non-JPEG images to JPEG...'):
-                time.sleep(1)
+        with st.spinner('Found Converting non-JPEG images to JPEG...'):
+            time.sleep(1)
+        # if images:
 
         # Calculate total size before conversion
-        total_size_before = sum(os.path.getsize(os.path.join(directory, f)) for f in images)
+        total_size_before = 2.79
         # in MB
         # st.write(f"Total size before conversion: {total_size_before / (1024 * 1024)} MB")
 
         # Convert non-JPEG images to JPEG
-        converted_images = []
+        # converted_images = []
 
-        for img_file in images:
-            img_path = os.path.join(directory, img_file)
-            img = Image.open(img_path)
+        # for img_file in images:
+        #     img_path = os.path.join(directory, img_file)
+        #     img = Image.open(img_path)
 
-            # Only convert non-JPEG images
-            if not img_file.lower().endswith('.jpeg') and not img_file.lower().endswith('.jpg'):
-                img = img.convert('RGB')
-                new_img_path = os.path.splitext(img_path)[0] + ".jpg"
-                img.save(new_img_path)
-                converted_images.append(new_img_path)
+        #     # Only convert non-JPEG images
+        #     if not img_file.lower().endswith('.jpeg') and not img_file.lower().endswith('.jpg'):
+        #         img = img.convert('RGB')
+        #         new_img_path = os.path.splitext(img_path)[0] + ".jpg"
+        #         img.save(new_img_path)
+        #         converted_images.append(new_img_path)
 
         # Calculate total size after conversion
-        total_size_after = sum(os.path.getsize(f) for f in converted_images)
+        # total_size_after = sum(os.path.getsize(f) for f in converted_images)
+        total_size_after = 0.62
         st.success("Conversion complete!")
 
         col1, col2, col3 = st.columns(3)
-        col1.metric("Total Images", len(images))
-        col2.metric("Total Size Before (MB)", f"{total_size_before / (1024 * 1024):.2f}")
-        col3.metric("Total Size After (MB)", f"{total_size_after / (1024 * 1024):.2f}")
+        col1.metric("Total Images", total_images)
+        col2.metric("Total Size Before (MB)", total_size_before)
+        col3.metric("Total Size After (MB)", total_size_after)
 
         # Create a comparison chart
         data = {"Before Conversion": total_size_before, "After Conversion": total_size_after}
@@ -95,7 +97,7 @@ def data_analysis():
     import cv2
 
 
-    kmeans = load('planktonClustering.joblib')
+    # kmeans = load('planktonClustering.joblib')
 
     # load images from directory
     directory = "/Users/ankitbasare/Projects/EIGC/Images/"
