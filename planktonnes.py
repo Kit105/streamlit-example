@@ -142,9 +142,9 @@ def data_analysis():
     #     return dict(zip(image_files, scores.flatten()))
     
     if st.button("Start Uniqueness Analysis"):
-        if not os.path.isdir(directory):
-            st.error("Invalid directory")
-            return
+        # if not os.path.isdir(directory):
+        #     st.error("Invalid directory")
+        #     return
         with st.spinner('Checking for image files in directory...'):
             time.sleep(1)
 
