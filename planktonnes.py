@@ -77,24 +77,24 @@ def data_preprocessing():
             
 
 def data_analysis():
-    import numpy as np
-    from scipy import ndimage
-    from scipy.spatial import distance
-    from sklearn.cluster import KMeans
-    import pandas as pd
-    from tqdm import tqdm
-    from skimage import io
-    from skimage import color
-    from skimage.transform import resize
-    from string import digits
-    import matplotlib.pyplot as plt
-    from skimage.feature import hog
-    from skimage import data, exposure
-    from joblib import dump, load
-    from sklearn.cluster import KMeans
-    from sklearn.preprocessing import MinMaxScaler
-    tqdm.pandas()
-    import cv2
+    # import numpy as np
+    # from scipy import ndimage
+    # from scipy.spatial import distance
+    # from sklearn.cluster import KMeans
+    # import pandas as pd
+    # from tqdm import tqdm
+    # from skimage import io
+    # from skimage import color
+    # from skimage.transform import resize
+    # from string import digits
+    # import matplotlib.pyplot as plt
+    # from skimage.feature import hog
+    # from skimage import data, exposure
+    # from joblib import dump, load
+    # from sklearn.cluster import KMeans
+    # from sklearn.preprocessing import MinMaxScaler
+    # tqdm.pandas()
+    # import cv2
 
 
     # kmeans = load('planktonClustering.joblib')
@@ -108,38 +108,38 @@ def data_analysis():
         else:
             continue
 
-    def get_image_histogram(image, bins=(8, 8, 8)):
-        # Compute the histogram of the RGB channels separately
-        hist = cv2.calcHist([image], [0, 1, 2], None, bins, [0, 256, 0, 256, 0, 256])
+    # def get_image_histogram(image, bins=(8, 8, 8)):
+    #     # Compute the histogram of the RGB channels separately
+    #     hist = cv2.calcHist([image], [0, 1, 2], None, bins, [0, 256, 0, 256, 0, 256])
 
-        # Normalize the histogram
-        cv2.normalize(hist, hist)
+    #     # Normalize the histogram
+    #     cv2.normalize(hist, hist)
 
-        # Return the histogram as a one-dimensional array
-        return hist.flatten()
+    #     # Return the histogram as a one-dimensional array
+    #     return hist.flatten()
 
-    def grade_images(directory):
-        # Get all image file paths in the directory
-        image_files = [os.path.join(directory, f) for f in os.listdir(directory) if f.endswith(('.jpg', '.jpeg'))]
+    # def grade_images(directory):
+    #     # Get all image file paths in the directory
+    #     image_files = [os.path.join(directory, f) for f in os.listdir(directory) if f.endswith(('.jpg', '.jpeg'))]
 
-        # Compute color histogram for each image
-        features = []
-        for image_file in image_files:
-            image = cv2.imread(image_file)
-            hist = get_image_histogram(image)
-            features.append(hist)
+    #     # Compute color histogram for each image
+    #     features = []
+    #     for image_file in image_files:
+    #         image = cv2.imread(image_file)
+    #         hist = get_image_histogram(image)
+    #         features.append(hist)
 
-        kmeans = KMeans(n_clusters=min(10, len(image_files)))
-        kmeans.fit(features)
+    #     kmeans = KMeans(n_clusters=min(10, len(image_files)))
+    #     kmeans.fit(features)
 
-        distances = kmeans.transform(features)
+    #     distances = kmeans.transform(features)
 
-        distances_from_center = distances[np.arange(len(distances)), kmeans.labels_]
+    #     distances_from_center = distances[np.arange(len(distances)), kmeans.labels_]
 
-        scaler = MinMaxScaler()
-        scores = scaler.fit_transform(distances_from_center.reshape(-1, 1))
+    #     scaler = MinMaxScaler()
+    #     scores = scaler.fit_transform(distances_from_center.reshape(-1, 1))
 
-        return dict(zip(image_files, scores.flatten()))
+    #     return dict(zip(image_files, scores.flatten()))
     
     if st.button("Start Uniqueness Analysis"):
         if not os.path.isdir(directory):
@@ -150,12 +150,12 @@ def data_analysis():
 
         with st.spinner('Images found. Starting analysis...'):
             time.sleep(1)
-        scores = grade_images(directory)
+        # scores = grade_images(directory)
 
         with st.spinner('Loading pre-trained model...'):
             time.sleep(1)
 
-        scores_df = pd.DataFrame(list(scores.items()), columns=['Image', 'Uniqueness Score'])
+        # scores_df = pd.DataFrame(list(scores.items()), columns=['Image', 'Uniqueness Score'])
 
         # display  number of unique images and duplicates
         col1, col2 = st.columns(2)
@@ -165,7 +165,7 @@ def data_analysis():
         col2.metric("Duplicates", duplicate_images_num)
 
         #  chart to show distribution of uniqueness scores
-        st.bar_chart(scores_df['Uniqueness Score'])
+        # st.bar_chart(scores_df['Uniqueness Score'])
 
         st.success("Analysis complete!")
 
